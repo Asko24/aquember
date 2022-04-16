@@ -1,0 +1,10 @@
+.main{
+    max-width: 1000px;
+    background-color: aquamarine;
+    border-style: dotted;
+    border-radius: 2px;
+}
+
+.col-sm-4{
+    text-align: center;
+}
