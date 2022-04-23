@@ -1,0 +1,40 @@
+html, body {
+    height: 100%;
+    width:100%;
+    
+}
+
+.fill { 
+    height: 100%;
+}
+
+.bottom-bar{
+    position:relative;
+    bottom:0px;
+    display:block;
+    text-align:center;
+}
+.top-bar{
+    position:relative;
+    top:0px
+}
+#row_top{
+    position:relative;
+}
+#logout_button{
+    left:0px;
+    display:block;
+}
+#user_settings{
+    right:0px
+}
+#row_bottom{
+    display:inline;
+    width:100%;
+    
+}
+
+/* #app{
+    height: 100%;
+    display: block
+} */
