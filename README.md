@@ -1,4 +1,7 @@
 # aquember-app
+Aplikacja przypominająca o odpowiednim nawodnieniu. Zrealizowana w ramach przedmiotu Programowanie Systemów Mobilnych.
+Autorzy: Kinga Borycka, Piotr Gałecki, Karol Janik
+
 
 ## Project setup
 ```
