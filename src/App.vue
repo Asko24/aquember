@@ -6,17 +6,21 @@
     <router-link to="/login">Login</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/home">Home</router-link> |
-    <router-link to="/reporting">Reporting</router-link>
+    <router-link to="/reporting">Reporting</router-link> | 
+    <router-link to="/welcome">Welcome</router-link>
   </nav>
   <router-view/>
 </template>
 
 <script>
+
 import TopHeader from './components/TopHeader.vue'
 
 export default {
-  components:{'top-header':TopHeader}
+  components:{'top-header':TopHeader},
+  
 }
+
 </script>
 
 <style>
@@ -40,4 +44,9 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+.dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
+}
+@import'~bootstrap/dist/css/bootstrap.css'
 </style>
