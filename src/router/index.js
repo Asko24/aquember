@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import Reporting from '../views/Reporting.vue'
 import AboutView from '../views/AboutView.vue'
 import Secret from '../views/Secret.vue'
+import Welcome from '../views/Welcome.vue'
 
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/Welcome',
+    name: 'Welcome',
+    component: Welcome
   }
 ]
 
@@ -50,5 +56,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+
 
 export default router

@@ -1,7 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+// import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import jquery from './jquery.js'
+// import bootstrap from './bootstrap.min.js';
+// import bootstrap from Bootstrap
 import 'bootstrap'
+//Vue.use(BootstrapVue)
+//import 'bootstrap';
+
+//import 'popper'
+//import 'bootstrap'
 import {initializeApp} from 'firebase/app'
 
 const firebaseConfig = {

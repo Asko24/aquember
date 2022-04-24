@@ -1,0 +1,8 @@
+{
+    "beverages":[
+        {"Name":"water","DisplayName":"Water","multiplier":1},
+        {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
+        {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
+        {"Name":"beer","DisplayName":"Beer","multiplier":0.49}
+    ]
+}
