@@ -8,13 +8,30 @@
             </div>
             <div class="row no vertical-parent" style="flex:25; background-color:#dddddd;">
                 <div class="no vertical-center" >
-                    <h2 class="no">Lol xD</h2>
+                    <h2 class="no">Welcome to Hydration App</h2>
+                    <p style="margin-top:16px;">Keep Calm and Stay Hydrated</p>
+                    <p style="margin-top:16px;">3 users | 415 views</p>
                 </div>
                 
             </div>
             <div class="row no vertical-parent" style="flex:35; background-color:#99dddd;">
-                <div class="no vertical-center">
-                    <h2 class="no">Lol xD</h2>
+                <div class="no vertical-center ">
+                    <div class="no row">
+                        <div class="no col-12 ">
+                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
+                                test
+                            </button>
+                        </div>
+                        
+                    </div>
+                    <div class="no row">
+                        <div class="no col-12 " >
+                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
+                                test
+                            </button>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
             
