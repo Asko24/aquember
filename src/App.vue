@@ -7,7 +7,10 @@
     <router-link to="/register">Register</router-link> |
     <router-link to="/home">Home</router-link> |
     <router-link to="/reporting">Reporting</router-link> | 
-    <router-link to="/welcome">Welcome</router-link>
+    <router-link to="/welcome">Welcome</router-link> |
+    <router-link to="/loginw">LoginW</router-link> |
+    <router-link to="/registerw">RegisterW</router-link> |
+    <router-link to="/reportingw">ReportingW</router-link>
   </nav>
   <router-view/>
 </template>
