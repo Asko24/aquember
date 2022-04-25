@@ -1,23 +1,23 @@
 <template>
 	<div id="Dashboard" class="container-fluid w-100 vh-100">
         <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
-            <div class="row no vertical-parent" style="flex:3; background-color:#dddddd;">
+            <div class="row no vertical-parent dark" style="flex:3; ">
                 <div class="no row vertical-center" >
                     <div class="no col-3">
-a   
+                        Today
                     </div>
                     <div class="no col-6">
-a
                     </div>
                     <div class="no col-3">
-a
+                        13:00
                     </div>
                 </div>
                 
             </div>
-            <div class="no row" style="padding:0px;margin:0px; flex:8; background-color:grey;">
+            <div class="no row" style="padding:0px;margin:0px; flex:8;">
                     <div class="no col-4">
                         <img src="../assets/icons/ShotGlass0.png" class="img-fluid rounded float-left"  height=50% alt="aaa">
+                        125ml
                     </div>
                     <div class="no col-4">
                         <img src="../assets/icons/ShotGlass1.png" class="img-fluid rounded float-left"   alt="aaa">
@@ -28,18 +28,18 @@ a
                     <h2 class="no">Custom amount</h2>
                     <div class="no row">
                         
-                        <div class="no col-6">
-                            <input type="text" name="Custom" id="Custom">
+                        <div class="no col-12">
+                            <input type="text" class="inputs" name="Custom" id="Custom" style="margin-bottom:16px;margin-top:0px;">
                         </div>
                         
                     </div>
                     
             </div>
-            <div class="row no vertical-parent" style="flex:4; background-color:#dddddd;">
+            <div class="row no vertical-parent" style="flex:4;">
                 <div class="no vertical-center">
                     <h2 class="no">Choose a beverage</h2>
                     <div class = "no col-12">
-<input list="ice-cream-flavors" style="width:100%" id="ice-cream-choice" name="ice-cream-choice" />
+<input list="ice-cream-flavors" class="inputs" style="width:90%" id="ice-cream-choice" name="ice-cream-choice" />
 
 <datalist id="ice-cream-flavors" style="width:100%">
     <option value="Chocolate"> </option>
@@ -55,7 +55,7 @@ a
                 </div>
                 
             </div>
-            <div class="row no" style="flex:8; background-color:#dddddd;">
+            <div class="row no" style="flex:8;">
 
   <!-- <div id="div1" style="height: 500px;position:relative;">
     <div id="div2" style="max-height:100%;overflow:auto;border:1px solid red;">
@@ -73,12 +73,12 @@ a
                 </div> -->
                 
             </div>
-            <div class="row no vertical-parent" style="flex:4; background-color:#99dddd;">
+            <div class="row no vertical-parent" style="flex:4;">
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
-                                test
+                            <button class="align-middle buttons" style="width:100%; height:70%">
+                                APPLY
                             </button>
                         </div>
                         
