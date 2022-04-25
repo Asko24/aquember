@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {getAuth, signInWithEmailAndPassword} from "firebase/auth"
+import {getAuth, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth"
 
     export default {
         data() {
@@ -30,9 +30,18 @@ import {getAuth, signInWithEmailAndPassword} from "firebase/auth"
         methods: {
             async pressed(){
                 try{
-                    const login = await signInWithEmailAndPassword(getAuth(), this.email, this.password)
-                    this.$router.replace({name: "secret"});
-                    console.log(login)
+                    var userData = null;
+                    const auth = getAuth()
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            this.$store.dispatch('fetchUser', user);
+                            userData = user
+                        }
+                        console.log("LoggedIn:", this.$store.state.user.loggedIn)
+                    });
+                    await signInWithEmailAndPassword(getAuth(), this.email, this.password)
+                    this.$router.replace({name: "secret"})
+                    console.log("Zalogowano:", userData)  
                 }catch(e){
                     console.log(e.message)
                     this.error = e.message

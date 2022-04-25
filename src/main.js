@@ -1,6 +1,8 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+
 // import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
 // import 'bootstrap/dist/css/bootstrap.css'
 // import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -27,6 +29,5 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-createApp(App).use(router).mount('#app')
-
+createApp(App).use(router).use(store).mount('#app')
 

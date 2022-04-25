@@ -20,10 +20,16 @@
 <script>
 
 import TopHeader from './components/TopHeader.vue'
+import { computed , beforeMount} from "vue"
+import { useStore } from 'vuex'
 
 export default {
   components:{'top-header':TopHeader},
-  
+  beforeMount() {
+    const store = useStore();
+    const user = computed(() => this.$store.state.user);
+    this.$store.commit("SET_LOGGED_IN", null);
+  }
 }
 
 </script>

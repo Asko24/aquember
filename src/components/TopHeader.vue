@@ -1,50 +1,43 @@
 <template>
   <div>
       Logged in:
-      <span v-if="loggedIn">Yes</span>
+      <span v-if="user.loggedIn">Yes</span>
       <span v-else>No</span>
       <div>
-          <button v-if="loggedIn" @click="signOut">Sign out</button>
+          <button v-if="user.loggedIn" @click.prevent="signOut">Sign out</button>
       </div>
   </div>
 </template>
 
 <script>
-import {getAuth, signOut, onAuthStateChanged} from 'firebase/auth'
+import {getAuth, signOut} from "firebase/auth"
+import { mapGetters } from "vuex"
 
 export default {
     name: "top-header",
-    mounted() {
-        this.setupFirebase();
-    },
     methods: {
-        setupFirebase() {
-            onAuthStateChanged(getAuth(), function(user){
-                if (user) {
-                    // User is signed in.
-                    console.log("signed in");
-                    this.loggedIn = true;
-                } else {
-                    // No user is signed in.
-                    this.loggedIn = false;
-                    console.log("signed out", this.loggedIn);
-                }
-            });
-        },
         signOut() {
-            signOut()
-            .then(() => {
-                this.$router.replace({ name: "login" });
-                this.setupFirebase()
-            });
-            console.log(signOutData)
+            try{
+                this.$store.dispatch('fetchUser', null);
+                signOut(getAuth())
+                .then(()=>{
+                        this.$router.replace({name: "login"})
+                        console.log("LoggedOut")
+                })
+            }catch(e){console.log(e.message)}
+            
         }
     },
     data() {
         return {    
-            loggedIn: false   
+ 
         }
-    }
+    },
+    computed: {
+    ...mapGetters({
+      user: "user"
+    })
+  },
 
 }
 </script>
