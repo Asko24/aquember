@@ -37,52 +37,25 @@ a
             </div>
             <div class="row no vertical-parent" style="flex:4; background-color:#dddddd;">
                 <div class="no vertical-center">
-                    <h2 class="no">Gender</h2>
-                    
+                    <h2 class="no">Choose a beverage</h2>
+                    <div class = "no col-12">
+<input list="ice-cream-flavors" style="width:100%" id="ice-cream-choice" name="ice-cream-choice" />
+
+<datalist id="ice-cream-flavors" style="width:100%">
+    <option value="Chocolate"> </option>
+    <option value="Coconut"></option>
+    <option value="Mint"></option>
+    <option value="Strawberry"></option>
+    <option value="Vanilla"></option>
+</datalist>
+
+                    </div>
+
+
                 </div>
                 
             </div>
             <div class="row no" style="flex:8; background-color:#dddddd;">
-                <input type="text" id="myInput" placeholder="Search for names..">
-<div style="relative">
-<div style="overflow:auto;">
-<table id="myTable" style="overflow:scroll">
-  <tr class="header">
-    <th style="width:60%;">Name</th>
-    <th style="width:40%;">Country</th>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Berglunds snabbkop</td>
-    <td>Sweden</td>
-  </tr>
-  <tr>
-    <td>Island Trading</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Koniglich Essen</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Koniglich Essen</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Koniglich Essen</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Koniglich Essen</td>
-    <td>Germany</td>
-  </tr>
-  
-</table>
-</div>
-</div>
 
   <!-- <div id="div1" style="height: 500px;position:relative;">
     <div id="div2" style="max-height:100%;overflow:auto;border:1px solid red;">
@@ -145,31 +118,6 @@ export default {
     name: "top-header",
     mounted() {
         this.random();
-        if(this.been == false){
-            document.getElementById("myInput").addEventListener("keyup", function myFunction(){
-                console.log("lol")
-                // Declare variables
-                var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("myTable");
-                tr = table.getElementsByTagName("tr");
-
-                // Loop through all table rows, and hide those who don't match the search query
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                    }
-                }
-            })
-        this.been = true
-        }
     },
     methods: {
         random() {
@@ -194,8 +142,7 @@ export default {
                 {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
                 {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
                 {"Name":"beer","DisplayName":"Beer","multiplier":0.49}
-            ],
-            been : false
+            ]
         }
     }
 
