@@ -1,12 +1,12 @@
 <template>
     <div id="Dashboard" class="container-fluid w-100 vh-100">
         <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
-            <div class="row" style="padding:0px;margin:0px; flex:30">
-                <div class="col-md-12" style="background-color:grey; position:relative;">
+            <div class="row dark" style="padding:0px;margin:0px; flex:30">
+                <div class="col-md-12" style="position:relative;">
                     <img src="../assets/icons/AppIcon.png"  class="align-middle vertical-center" style="height:80%;" alt="aaa">
                 </div>
             </div>
-            <div class="row no vertical-parent" style="flex:25; background-color:#dddddd;">
+            <div class="row no vertical-parent white" style="flex:25;">
                 <div class="no vertical-center" >
                     <h2 class="no">Welcome to Hydration App</h2>
                     <p style="margin-top:16px;">Keep Calm and Stay Hydrated</p>
@@ -14,20 +14,20 @@
                 </div>
                 
             </div>
-            <div class="row no vertical-parent" style="flex:35; background-color:#99dddd;">
+            <div class="row no vertical-parent grey" style="flex:35;">
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
-                                test
+                            <button class="align-middle buttons" style="width:95%; height:80%;">
+                                Login
                             </button>
                         </div>
                         
                     </div>
                     <div class="no row">
                         <div class="no col-12 " >
-                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
-                                test
+                            <button class="align-middle buttons" style="width:95%; height:80%; ">
+                                Register
                             </button>
                         </div>
                         

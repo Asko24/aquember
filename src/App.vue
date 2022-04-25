@@ -52,6 +52,40 @@ nav a.router-link-exact-active {
   max-height: 150px;
   overflow-y: auto;
 }
+.dark{
+  background-color:#335B71;
+  color:white;
+}
+.light{
+  background-color:#466A7E;
+}
+.white{
+  background-color:white;
+}
+.grey{
+  background-color:#eff2f7;
+}
+.buttons{
+  background-color:#466A7E;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top:16px;
+  margin-bottom:16px;
+}
+.inputs{
+  width:90%;
+  border:1px solid grey;
+  border-top:0px;
+  border-left:0px;
+  border-right:0px;
+  margin-top:16px;
+  
+}
 @import'~bootstrap/dist/css/bootstrap.css';
 @import './assets/toggle-switchy.css';
 </style>

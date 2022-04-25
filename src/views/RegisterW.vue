@@ -1,33 +1,33 @@
 <template>
     <div id="Dashboard" class="container-fluid w-100 vh-100">
         <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
-            <div class="row no vertical-parent" style="flex:2; background-color:#dddddd;">
+            <div class="row no vertical-parent dark" style="flex:2;">
                 <div class="no vertical-center" >
                     <h2 class="no">Register To Hydration App</h2>
                     
                 </div>
                 
             </div>
-            <div class="no row vertical-parent" style="padding:0px;margin:0px; flex:8; background-color:grey;">
+            <div class="no row vertical-parent white" style="padding:0px;margin:0px; flex:8;">
                 <div class="no vertical-center " > 
-                <div class="col-md-12" style="background-color:grey; position:relative;">
+                <div class="col-md-12" style=" position:relative;">
                     <div class="email">
-                        <input type="email" v-model="email" placeholder="login">
+                        <input type="email" class="inputs" v-model="email" placeholder="login">
                     </div>
                     <div class="password">
-                        <input type="password" v-model="password" placeholder="password">
+                        <input type="password" class="inputs"  v-model="password" placeholder="password">
                     </div>
                 </div>
                 </div>
             </div>
-            <div class="row no vertical-parent" style="flex:4; background-color:#dddddd;">
+            <div class="row no vertical-parent" style="flex:4;">
                 <div class="no vertical-center" >
                     <h2 class="no">Gender</h2>
                     
                 </div>
                 
             </div>
-            <div class="row no" style="flex:8; background-color:#dddddd;">
+            <div class="row no" style="flex:8;">
                 <div class="no" >
                     <div class="no row">
                         <div class="no col-2">
@@ -68,12 +68,12 @@
                 </div>
                 
             </div>
-            <div class="row no vertical-parent" style="flex:8; background-color:#99dddd;">
+            <div class="row no vertical-parent" style="flex:8;">
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
-                                test
+                            <button class="align-middle buttons" style="width:95%; height:70%;">
+                                REGISTER
                             </button>
                         </div>
                         

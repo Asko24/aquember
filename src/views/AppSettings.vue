@@ -2,15 +2,15 @@
     <div id="Dashboard" class="container-fluid w-100 vh-100">
         <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
 
-            <div class="row no vertical-parent" style="flex:8; background-color:#000b8d;">
+            <div class="row no vertical-parent dark" style="flex:8;">
                 <div class="no vertical-center" >
                     <h2 class="no">Settings</h2>
                 </div>
             </div>
 
-            <div class="row no vertical-parent" style="flex:25; background-color:#99dddd;">
+            <div class="row no vertical-parent" style="flex:25;">
                 <div class="no vertical-center ">
-                    <p>General Settings</p>
+                    <h2>General Settings</h2>
                     <!-- <div class="no row">
                         <div class="no col-4 ">
                             <input type="checkbox" id="notifications" class="align-middle" style="width:95%; height:100%; border-radius:8px"/>
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="row no vertical-parent" style="flex:25; background-color:#55dddd;">
+            <div class="row no vertical-parent" style="flex:25;">
                 <div class="no vertical-center ">
                     <div class="no row">
                         <p>Notification hours</p>
@@ -89,12 +89,12 @@
                 </div>
             </div>
 
-            <div class="row no vertical-parent" style="flex:25; background-color:#99dddd;">
+            <div class="row no vertical-parent" style="flex:25;">
                 <div class="no vertical-center ">
                     <div class="no row">
                         <p>Custom Daily Amount</p>
                         <div class="no col-12 ">
-                            <input type="text" value="2000 ml">
+                            <input type="text" class="inputs" value="2000 ml" style="margin-top:0px;margin-bottom:16px">
                         </div>  
                     </div>
 
@@ -102,25 +102,25 @@
                         <p>Custom Portion Amount</p>
                         <div class="no col-12" >
                             <div class="no col-12 ">
-                                <input type="text" value="250 ml">
+                                <input type="text"  class="inputs" value="250 ml" style="margin-top:0px;">
                             </div>  
                         </div>   
                     </div>
                 </div>
             </div>
 
-        <div class="row no vertical-parent" style="flex:25; background-color:#55dddd;">
+        <div class="row no vertical-parent" style="flex:25;">
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
+                            <button class="align-middle buttons" style="width:95%; height:70%;">
                                 Reset to Default Data
                             </button>
                         </div>  
                     </div>
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle" style="width:95%; height:100%; border-radius:8px">
+                            <button class="align-middle buttons" style="width:95%; height:70%">
                                 Apply Changes
                             </button>
                         </div>  
