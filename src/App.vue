@@ -7,7 +7,8 @@
     <router-link to="/register">Register</router-link> |
     <router-link to="/home">Home</router-link> |
     <router-link to="/reporting">Reporting</router-link> | 
-    <router-link to="/welcome">Welcome</router-link>
+    <router-link to="/welcome">Welcome</router-link> |
+    <router-link to="/appsettings">AppSettings</router-link>
   </nav>
   <router-view/>
 </template>
@@ -48,5 +49,6 @@ nav a.router-link-exact-active {
   max-height: 150px;
   overflow-y: auto;
 }
-@import'~bootstrap/dist/css/bootstrap.css'
+@import'~bootstrap/dist/css/bootstrap.css';
+@import './assets/toggle-switchy.css';
 </style>
