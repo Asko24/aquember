@@ -74,13 +74,13 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <p>Notification hours</p>
-                        <div class="no col-6 ">
+                        <div class="no col-6 " style="margin-left: 3%">
                             <div id="slider">
                             </div>
                         </div>
                     </div>
                     <div class="no row">
-                        <div class="no col-6 ">
+                        <div class="no col-6 " style="margin-left: 5%; margin-top: 2%">
                             <div>
                                 <div id="slider-range-value">test</div>
                             </div>
