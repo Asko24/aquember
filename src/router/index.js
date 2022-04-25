@@ -11,6 +11,7 @@ import LoginW from '../views/LoginW.vue'
 import RegisterW from '../views/RegisterW.vue'
 import ReportingW from '../views/ReportingW.vue'
 import AppSettings from '../views/AppSettings.vue'
+import UserSettings from '../views/UserSettings.vue'
 
 
 const routes = [
@@ -73,6 +74,11 @@ const routes = [
     path: '/appsettings',
     name: 'appsettings',
     component: AppSettings
+  },
+  {
+    path: '/usersettings',
+    name: 'usersettings',
+    component: UserSettings
   }
 ]
 
