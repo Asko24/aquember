@@ -11,6 +11,7 @@
     <router-link to="/loginw">LoginW</router-link> |
     <router-link to="/registerw">RegisterW</router-link> |
     <router-link to="/reportingw">ReportingW</router-link>
+    <router-link to="/appsettings">AppSettings</router-link>
   </nav>
   <router-view/>
 </template>
@@ -51,5 +52,6 @@ nav a.router-link-exact-active {
   max-height: 150px;
   overflow-y: auto;
 }
-@import'~bootstrap/dist/css/bootstrap.css'
+@import'~bootstrap/dist/css/bootstrap.css';
+@import './assets/toggle-switchy.css';
 </style>

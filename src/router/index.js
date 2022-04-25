@@ -10,6 +10,8 @@ import Welcome from '../views/Welcome.vue'
 import LoginW from '../views/LoginW.vue'
 import RegisterW from '../views/RegisterW.vue'
 import ReportingW from '../views/ReportingW.vue'
+import AppSettings from '../views/AppSettings.vue'
+
 
 const routes = [
   {
@@ -66,6 +68,11 @@ const routes = [
     path: '/ReportingW',
     name: 'Reporting',
     component: ReportingW
+  },
+  {
+    path: '/appsettings',
+    name: 'appsettings',
+    component: AppSettings
   }
 ]
 
