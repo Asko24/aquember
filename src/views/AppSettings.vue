@@ -113,14 +113,14 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%;">
+                            <button class="align-middle buttons" style="width:95%; height:70%;" id="reset-defaults">
                                 Reset to Default Data
                             </button>
                         </div>  
                     </div>
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%">
+                            <button class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
                                 Apply Changes
                             </button>
                         </div>  
@@ -138,6 +138,13 @@
 export default {
     name: "top-header",
     mounted() {
+
+        var reset_defaults_button = document.getElementById("reset-defaults")
+        reset_defaults_button.addEventListener("click", clickResetDefaults)
+
+        var apply_changes_button = document.getElementById("apply-changes")
+        apply_changes_button.addEventListener("click", clickApplyChanges)
+
         var slider = document.getElementById('slider');
         slider.innerHTML = ""
 
@@ -185,6 +192,15 @@ slider.noUiSlider.on('update', function (values) {
         }
     }
 }
+
+function clickResetDefaults(){
+    console.log("ResetDefaults")
+}
+
+function clickApplyChanges(){
+    console.log("ApplyChanges")
+}
+
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 </script>

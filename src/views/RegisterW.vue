@@ -72,7 +72,7 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%;">
+                            <button class="align-middle buttons" style="width:95%; height:70%;" id="register-register">
                                 REGISTER
                             </button>
                         </div>
@@ -92,7 +92,18 @@
 </template>
 
 <script>
+export default {
+    mounted(){
 
+        var register_register_button = document.getElementById("register-register")
+        register_register_button.addEventListener("click", clickRegisterRegister)
+    }
+}
+
+
+function clickRegisterRegister(){
+    console.log("RegisterRegister")
+}
    
 </script>
 

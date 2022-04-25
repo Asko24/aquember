@@ -25,7 +25,7 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%;">
+                            <button class="align-middle buttons" style="width:95%; height:70%;" id="login-login">
                                 Login
                             </button>
                         </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="no row">
                         <div class="no col-12 " >
-                            <button class="align-middle buttons " style="width:95%; height:70%;">
+                            <button class="align-middle buttons " style="width:95%; height:70%;" id="register-login">
                                 Register
                             </button>
                         </div>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="no row">
                         <div class="no col-12 " >
-                            <button class="align-middle buttons" style="width:95%; height:70%; margin-top:8px; margin-bottom:8px;">
+                            <button class="align-middle buttons" style="width:95%; height:70%; margin-top:8px; margin-bottom:8px;" >
                                 LOGIN WITH GOOGLE
                             </button>
                         </div>
@@ -85,7 +85,22 @@
 </template>
 
 <script>
+export default {
+    mounted(){
+        var login_login_button = document.getElementById("login-login")
+        login_login_button.addEventListener("click", clickLoginLogin)
 
+        var register_login_button = document.getElementById("register-login")
+        register_login_button.addEventListener("click", clickRegisterLogin)
+    }
+}
+
+function clickLoginLogin(){
+    console.log("LoginLogin")
+}
+function clickRegisterLogin(){
+    console.log("RegisterLogin")
+}
    
 </script>
 

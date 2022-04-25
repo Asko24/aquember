@@ -15,15 +15,17 @@
                 
             </div>
             <div class="no row" style="padding:0px;margin:0px; flex:8;">
-                    <div class="no col-4">
+                    <div class="no col-4" id = "small-drink">
                         <img src="../assets/icons/ShotGlass0.png" class="img-fluid rounded float-left"  height=50% alt="aaa">
-                        125ml
+                        125 ml
                     </div>
-                    <div class="no col-4">
+                    <div class="no col-4" id = "medium-drink">
                         <img src="../assets/icons/ShotGlass1.png" class="img-fluid rounded float-left"   alt="aaa">
+                        250 ml
                     </div>
-                    <div class="no col-4">
+                    <div class="no col-4" id = "big-drink">
                         <img src="../assets/icons/ShotGlass.png" class="img-fluid rounded float-left"   alt="aaa">
+                        375 ml
                      </div>
                     <h2 class="no">Custom amount</h2>
                     <div class="no row">
@@ -42,11 +44,12 @@
 <input list="ice-cream-flavors" class="inputs" style="width:90%" id="ice-cream-choice" name="ice-cream-choice" />
 
 <datalist id="ice-cream-flavors" style="width:100%">
-    <option value="Chocolate"> </option>
-    <option value="Coconut"></option>
-    <option value="Mint"></option>
-    <option value="Strawberry"></option>
-    <option value="Vanilla"></option>
+    <option value="Water"> </option>
+    <option value="Apple Juice"></option>
+    <option value="Orange Juice"></option>
+    <option value="Coffee"></option>
+    <option value="Tea"></option>
+    <option value="Beer"></option>
 </datalist>
 
                     </div>
@@ -77,7 +80,7 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:100%; height:70%">
+                            <button class="align-middle buttons" style="width:100%; height:70%" id="custom-drink">
                                 APPLY
                             </button>
                         </div>
@@ -118,6 +121,17 @@ export default {
     name: "top-header",
     mounted() {
         this.random();
+        var small_drink_button = document.getElementById("small-drink")
+        small_drink_button.addEventListener("click", clickSmallDrink)
+
+        var medium_drink_button = document.getElementById("medium-drink")
+        medium_drink_button.addEventListener("click", clickMediumDrink)
+
+        var big_drink_button = document.getElementById("big-drink")
+        big_drink_button.addEventListener("click", clickBigDrink)
+
+        var custom_drink_button = document.getElementById("custom-drink")
+        custom_drink_button.addEventListener("click", clickCustomDrink)
     },
     methods: {
         random() {
@@ -146,6 +160,18 @@ export default {
         }
     }
 
+}
+function clickSmallDrink(){
+    console.log("SmallDrink")
+}
+function clickMediumDrink(){
+    console.log("MediumDrink")
+}
+function clickBigDrink(){
+    console.log("BigDrink")
+}
+function clickCustomDrink(){
+    console.log("CustomDrink")
 }
 </script>
 

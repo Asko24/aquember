@@ -70,7 +70,7 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%;">
+                            <button class="align-middle buttons" style="width:95%; height:70%;" id="apply-user-changes">
                                 Apply Changes
                             </button>
                         </div>
@@ -91,7 +91,17 @@
 
 <script>
 
-   
+export default {
+    mounted(){
+        var apply_user_changes_button = document.getElementById("apply-user-changes")
+        apply_user_changes_button.addEventListener("click", clickApplyUserChanges)
+    }
+}
+
+function clickApplyUserChanges(){
+    console.log("ApplyUserChanges")
+}
+
 </script>
 
 <style scoped>
