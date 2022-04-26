@@ -2,15 +2,17 @@
 <div id="Dashboard" class="container-fluid w-100 vh-100">
 <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
     <div class="no navbar top" style="flex:2">
-            <img @click="signOut()" src="../assets/icons/exit.png" width="25%"  alt="aaa" id="exit">
-        <router-link to="/usersettings">
-            <img src="../assets/icons/Personal2.png" width="25%" alt="aaa" id="user-settings">
+            <img @click="signOut()" src="../assets/icons/exit.png" style="width:25%"  alt="aaa" id="exit">
+        <router-link to="/usersettings" style="width:25%">
+            <img src="../assets/icons/Personal2.png" style="width:100%" alt="aaa" id="user-settings">
         </router-link>
     </div>
 
     <div class="no row align-items-center justify-content-center" style="flex:5">
         <div class="no row">
-            <img src="../assets/icons/ShotGlass.png" class="mx-auto d-block" style="width: 55%;" alt="aaa" id="drink">
+            <router-link to="/ReportingW">
+                <img src="../assets/icons/ShotGlass.png" class="mx-auto d-block" style="width: 55%;" alt="aaa" id="drink">
+            </router-link>
         </div>
     </div>
 
@@ -24,13 +26,13 @@
     </div>
 
     <div class="no navbar bottom" style="flex:2">
-        <router-link to="/usersettings">
-            <img src="../assets/icons/Cog4.png" width="33%" alt="aaa" id="settings">
+        <router-link to="/usersettings" style="width:33%">
+            <img src="../assets/icons/Cog4.png" style="width:100%" alt="aaa" id="settings">
         </router-link>
-        <router-link to="/home">
-            <img src="../assets/icons/home.png" width="33%" alt="aaa" id="home">
+        <router-link to="/home" style="width:33%">
+            <img src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
         </router-link>
-        <img src="../assets/icons/Calendar.png" width="33%" alt="aaa" id="calendar">
+        <img src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
     </div>
 </div>
 </div>
@@ -59,45 +61,7 @@ export default {
         user: "user"
         })
     },
-    // mounted(){
-
-
-    //     var drink_button = document.getElementById("drink")
-    //     drink_button.addEventListener("click", drink)
-
-
-    //     var home_button = document.getElementById("home")
-    //     home_button.addEventListener("click", home)
-
-    //     var calendar_button = document.getElementById("calendar")
-    //     calendar_button.addEventListener("click", calendar)
-    // }
 }
-
-function exit(){
-    console.log("exit")
-}
-
-function userSettings(){
-    console.log("userSettings")
-}
-
-function drink(){
-    console.log("drink")
-}
-
-function settings(){
-    console.log("settings")
-}
-
-function home(){
-    console.log("home")
-}
-
-function calendar(){
-    console.log("calendar")
-}
-
 </script>
 
 <style>

@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: '/ReportingW',
-    name: 'Reporting',
+    name: 'ReportingW',
     component: ReportingW
   },
   {
