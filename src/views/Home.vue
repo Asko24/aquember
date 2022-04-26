@@ -2,8 +2,10 @@
 <div id="Dashboard" class="container-fluid w-100 vh-100">
 <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
     <div class="no navbar top" style="flex:2">
-    <img src="../assets/icons/exit.png" width="25%"  alt="aaa" id="exit">
-    <img src="../assets/icons/Personal2.png" width="25%" alt="aaa" id="user-settings">
+            <img @click="signOut()" src="../assets/icons/exit.png" width="25%"  alt="aaa" id="exit">
+        <router-link to="/usersettings">
+            <img src="../assets/icons/Personal2.png" width="25%" alt="aaa" id="user-settings">
+        </router-link>
     </div>
 
     <div class="no row align-items-center justify-content-center" style="flex:5">
@@ -22,8 +24,12 @@
     </div>
 
     <div class="no navbar bottom" style="flex:2">
-        <img src="../assets/icons/Cog4.png" width="33%" alt="aaa" id="settings">
-        <img src="../assets/icons/home.png" width="33%" alt="aaa" id="home">
+        <router-link to="/usersettings">
+            <img src="../assets/icons/Cog4.png" width="33%" alt="aaa" id="settings">
+        </router-link>
+        <router-link to="/home">
+            <img src="../assets/icons/home.png" width="33%" alt="aaa" id="home">
+        </router-link>
         <img src="../assets/icons/Calendar.png" width="33%" alt="aaa" id="calendar">
     </div>
 </div>
@@ -31,26 +37,41 @@
 </template>
 
 <script>
+import {getAuth, signOut} from "firebase/auth"
+import { mapGetters } from "vuex"
+
 export default {
-    mounted(){
-        var exit_button = document.getElementById("exit")
-        exit_button.addEventListener("click", exit)
+    methods: {
+        signOut() {
+            try{
+                this.$store.dispatch('fetchUser', null);
+                signOut(getAuth())
+                .then(()=>{
+                        this.$router.replace({name: "login"})
+                        console.log("LoggedOut")
+                })
+            }catch(e){console.log(e.message)}
+            
+        }
+    },
+    computed: {
+        ...mapGetters({
+        user: "user"
+        })
+    },
+    // mounted(){
 
-        var user_settings_button = document.getElementById("user-settings")
-        user_settings_button.addEventListener("click", userSettings)
 
-        var drink_button = document.getElementById("drink")
-        drink_button.addEventListener("click", drink)
+    //     var drink_button = document.getElementById("drink")
+    //     drink_button.addEventListener("click", drink)
 
-        var settings_button = document.getElementById("settings")
-        settings_button.addEventListener("click", settings)
 
-        var home_button = document.getElementById("home")
-        home_button.addEventListener("click", home)
+    //     var home_button = document.getElementById("home")
+    //     home_button.addEventListener("click", home)
 
-        var calendar_button = document.getElementById("calendar")
-        calendar_button.addEventListener("click", calendar)
-    }
+    //     var calendar_button = document.getElementById("calendar")
+    //     calendar_button.addEventListener("click", calendar)
+    // }
 }
 
 function exit(){

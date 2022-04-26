@@ -18,17 +18,21 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:80%;" id="login-welcome">
-                                Login
-                            </button>
+                            <router-link to="/login">
+                                <button class="align-middle buttons" style="width:95%; height:80%;" id="login-welcome">
+                                    Login
+                                </button>
+                            </router-link>
                         </div>
                         
                     </div>
                     <div class="no row">
                         <div class="no col-12 " >
-                            <button class="align-middle buttons" style="width:95%; height:80%;" id="register-welcome">
-                                Register
-                            </button>
+                            <router-link to="/register">
+                                <button class="align-middle buttons" style="width:95%; height:80%;" id="register-welcome">
+                                    Register
+                                </button>
+                            </router-link>
                         </div>
                         
                     </div>
@@ -44,22 +48,6 @@
 </template>
 
 <script>
-export default {
-    mounted(){
-        var login_welcome_button = document.getElementById("login-welcome")
-        login_welcome_button.addEventListener("click", clickLoginWelcome)
-
-        var register_welcome_button = document.getElementById("register-welcome")
-        register_welcome_button.addEventListener("click", clickRegisterWelcome)
-    }
-}
-
-function clickLoginWelcome(){
-    console.log("LoginWelcome")
-}
-function clickRegisterWelcome(){
-    console.log("RegisterWelcome")
-}
 </script>
 
 <style scoped>
