@@ -113,14 +113,14 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%;" id="reset-defaults">
+                            <button @click="testTime()" class="align-middle buttons" style="width:95%; height:70%;" id="reset-defaults">
                                 Reset to Default Data
                             </button>
                         </div>  
                     </div>
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
+                            <button @click="testNotification()" class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
                                 Apply Changes
                             </button>
                         </div>  
@@ -188,7 +188,26 @@ slider.noUiSlider.on('update', function (values) {
     },
     methods: {
         random() {
-           console.log("coons2")
+           console.log("coons2");
+        },
+        testVibrate() {
+            console.log("i vibrated");
+            navigator.vibrate(500);
+        },
+        testNotification(){
+            console.log("i sent popup")
+            Notification.requestPermission().then(function(result){
+                console.log(result)
+            })
+            var img = importedAppIcon;
+            var text = 'Time to drink water!';
+            var notification = new Notification('Aquember friendly reminds', { body: text, icon: img });
+        },
+        testTime(){
+            var now = new Date();
+            var seconds = now.getSeconds();
+            console.log(seconds);
+
         }
     }
 }
@@ -203,6 +222,7 @@ function clickApplyChanges(){
 
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
+import importedAppIcon from "../assets/icons/AppIcon.png"
 </script>
 
 <style scoped>
