@@ -84,18 +84,37 @@
 
 <script>
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
+import { collection, addDoc } from "firebase/firestore"
+import db from '../main.js'
+import { computed } from '@vue/runtime-core'
 
 export default {
     methods: {
         async register(){
             try{
                 const user = await createUserWithEmailAndPassword(getAuth(), this.email, this.password)
+                this.updateFirestore()
                 this.$router.replace({name: "secret"});
                 console.log(user)
             }catch(e){
                 console.log(e.message)
                 this.error = e.message
             }
+        },
+        updateFirestore() {
+            const userData = {
+                custom_daily_amount: 2000,
+                custom_portion_size: 250,
+                email: this.email,
+                gender: this.gender,
+                notifications: true,
+                notifications_time_start: 8,
+                notifications_time_end: 20,
+                sound: true,
+                vibration: true,
+            }
+            const userDataRef = addDoc(collection(db,'users'), userData)
+            console.log('Document was created with ID:', userDataRef.id)
         }
     },
     data() {
@@ -105,7 +124,8 @@ export default {
             gender: '',
             error: ''
         }
-    }
+
+  },
 }
 </script>
 

@@ -12,11 +12,11 @@ import store from './store'
 import 'bootstrap';
 //Vue.use(BootstrapVue)
 //import 'bootstrap';
-import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 //import 'popper'
 //import 'bootstrap'
 import {initializeApp} from 'firebase/app';
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAm0-V9k6vS0YznAIxZnVZWxluj3tv8xeY",
@@ -27,7 +27,10 @@ const firebaseConfig = {
   appId: "1:54566582789:web:914dacc5747b836aebfa6c"
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 createApp(App).use(router).use(store).mount('#app')
+
+export default db
 

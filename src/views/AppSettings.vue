@@ -22,7 +22,7 @@
                     <div class="no row">
                         <div class="no col-4 ">
                             <label for="notifications" class="toggle-switchy" data-style="rounded">
-                                <input checked type="checkbox" id="notifications">
+                                <input checked type="checkbox" id="notifications" v-model="notifications">
                                 <span class="toggle">
                                     <span class="switch"></span>
                                 </span>
@@ -37,8 +37,8 @@
 
                     <div class="no row">
                         <div class="no col-4 ">
-                            <label for="wibrations" class="toggle-switchy" data-style="rounded">
-                                <input checked type="checkbox" id="wibrations">
+                            <label for="vibration" class="toggle-switchy" data-style="rounded">
+                                <input checked type="checkbox" id="vibration" v-model="vibration">
                                 <span class="toggle">
                                     <span class="switch"></span>
                                 </span>
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="no col-4 ">
-                            <p>Wibrations</p>
+                            <p>Vibration</p>
                         </div>
                           
                     </div> 
@@ -54,7 +54,7 @@
                     <div class="no row">
                         <div class="no col-4 ">
                             <label for="sound" class="toggle-switchy" data-style="rounded">
-                                <input checked type="checkbox" id="sound">
+                                <input checked type="checkbox" id="sound" v-model="sound">
                                 <span class="toggle">
                                     <span class="switch"></span>
                                 </span>
@@ -94,15 +94,15 @@
                     <div class="no row">
                         <p>Custom Daily Amount</p>
                         <div class="no col-12 ">
-                            <input type="text" class="inputs" value="2000 ml" style="margin-top:0px;margin-bottom:16px">
+                            <input type="text" v-model="custom_daily_amount" class="inputs" style="margin-top:0px;margin-bottom:16px"> ml
                         </div>  
                     </div>
 
                     <div class="no row">
-                        <p>Custom Portion Amount</p>
+                        <p>Custom Portion Size</p>
                         <div class="no col-12" >
                             <div class="no col-12 ">
-                                <input type="text"  class="inputs" value="250 ml" style="margin-top:0px;">
+                                <input type="text" v-model="custom_portion_size" class="inputs" style="margin-top:0px;"> ml
                             </div>  
                         </div>   
                     </div>
@@ -135,61 +135,60 @@
 </template>
 
 <script>
+import { query, collection, getDocs, where } from "firebase/firestore";
+import db from '../main.js'
+
 export default {
     name: "top-header",
     mounted() {
 
-        var reset_defaults_button = document.getElementById("reset-defaults")
-        reset_defaults_button.addEventListener("click", clickResetDefaults)
+        // var reset_defaults_button = document.getElementById("reset-defaults")
+        // reset_defaults_button.addEventListener("click", clickResetDefaults)
 
-        var apply_changes_button = document.getElementById("apply-changes")
-        apply_changes_button.addEventListener("click", clickApplyChanges)
+        // var apply_changes_button = document.getElementById("apply-changes")
+        // apply_changes_button.addEventListener("click", clickApplyChanges)
 
         var slider = document.getElementById('slider');
         slider.innerHTML = ""
 
-noUiSlider.create(slider, {
-    start: [8, 20],
-    connect: true,
-    step: 1,
-    range: {
-        'min': 0,
-        'max': 24
-    }
-});
+        noUiSlider.create(slider, {
+            start: [8, 20],
+            connect: true,
+            step: 1,
+            range: {
+                'min': 0,
+                'max': 24
+            }
+        });
 
-var rangeSliderValueElement = document.getElementById('slider-range-value');
+        var rangeSliderValueElement = document.getElementById('slider-range-value');
 
-slider.noUiSlider.on('update', function (values) {
+        slider.noUiSlider.on('update', function (values) {
+            this.notifications_time_start = values[0]
+            this.notifications_time_end = values[1]
 
-    values[0] = parseInt(values[0])
-    if (values[0] <= 12) {
-        values[0] = values[0] + ' AM'
-    }
-    else {
-        values[0] = values[0] - 12
-        values[0] = values[0] + ' PM'
-    }
+            values[0] = parseInt(values[0])
+            if (values[0] <= 12) {
+                values[0] = values[0] + ' AM'
+            }
+            else {
+                values[0] = values[0] - 12
+                values[0] = values[0] + ' PM'
+            }
 
-    values[1] = parseInt(values[1])
-        if (values[1] <= 12) {
-        values[1] = values[1] + ' AM'
-    }
-    else {
-        values[1] = values[1] - 12
-        values[1] = values[1] + ' PM'
-    }
+            values[1] = parseInt(values[1])
+                if (values[1] <= 12) {
+                values[1] = values[1] + ' AM'
+            }
+            else {
+                values[1] = values[1] - 12
+                values[1] = values[1] + ' PM'
+            }
 
-    rangeSliderValueElement.innerHTML = values.join(' - ');
-});
-
-
-
+            rangeSliderValueElement.innerHTML = values.join(' - ');
+        });
     },
     methods: {
-        random() {
-           console.log("coons2");
-        },
         testVibrate() {
             console.log("i vibrated");
             navigator.vibrate(500);
@@ -208,7 +207,36 @@ slider.noUiSlider.on('update', function (values) {
             var now = new Date();
             var seconds = now.getSeconds();
             console.log(seconds);
+        },
 
+        defaultSettings() {
+            this.custom_daily_amount = 2000,
+            this.custom_portion_size = 250,
+            this.notifications = true,
+            this.notifications_time_start = 8,
+            this.notifications_time_end = 20,
+            this.sound = true,
+            this.vibration = true
+        },
+        getDataFromDatabase() {
+            // IN PROGRESS
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = getDocs(q);
+            // console.log(querySnapshot[docs])
+            
+
+        }
+    },
+    data() {
+        return {
+            custom_daily_amount: 2000,
+            custom_portion_size: 250,
+            notifications: true,
+            notifications_time_start: 8,
+            notifications_time_end: 20,
+            sound: true,
+            vibration: true
         }
     }
 }
