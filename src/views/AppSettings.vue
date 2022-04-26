@@ -120,7 +120,7 @@
                     </div>
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button @click="testNotification()" class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
+                            <button @click="getDataFromDatabase()" class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
                                 Apply Changes
                             </button>
                         </div>  
@@ -218,15 +218,16 @@ export default {
             this.sound = true,
             this.vibration = true
         },
-        getDataFromDatabase() {
+        async getDataFromDatabase() {
             // IN PROGRESS
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
-            const querySnapshot = getDocs(q);
-            // console.log(querySnapshot[docs])
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  console.log(doc.id, " => ", doc.data()); 
             
-
-        }
+        })}
     },
     data() {
         return {
