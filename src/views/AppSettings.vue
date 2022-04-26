@@ -202,6 +202,7 @@ slider.noUiSlider.on('update', function (values) {
             var img = importedAppIcon;
             var text = 'Time to drink water!';
             var notification = new Notification('Aquember friendly reminds', { body: text, icon: img });
+            playSound(importedSound)
         },
         testTime(){
             var now = new Date();
@@ -210,6 +211,11 @@ slider.noUiSlider.on('update', function (values) {
 
         }
     }
+}
+
+function playSound(url) {
+  const audio = new Audio(url);
+  audio.play();
 }
 
 function clickResetDefaults(){
@@ -223,6 +229,7 @@ function clickApplyChanges(){
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import importedAppIcon from "../assets/icons/AppIcon.png"
+import importedSound from "../assets/sounds/waterdrop2.mp3"
 </script>
 
 <style scoped>
