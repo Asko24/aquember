@@ -133,13 +133,18 @@ import db from '../main.js'
 
 export default {
     name: "top-header",
-    mounted() {
-
+    async mounted() {
+        await this.getDataFromDatabase()
+        console.log("very important data, don't lose it", this.$store.state.user.permissionN, this.$store.state.user.permissionV, this.$store.state.user.permissionS, this.$store.state.user.notificationTimeStart, this.$store.state.user.notificationTimeEnd)
+        document.getElementById('notifications').checked = this.$store.state.user.permissionN
+        document.getElementById('vibration').checked = this.$store.state.user.permissionV
+        document.getElementById('sound').checked = this.$store.state.user.permissionS
+        
         var slider = document.getElementById('slider');
         slider.innerHTML = ""
 
         noUiSlider.create(slider, {
-            start: [8, 20],
+            start: [this.$store.state.user.notificationTimeStart, this.$store.state.user.notificationTimeEnd],
             connect: true,
             step: 1,
             range: {
@@ -153,6 +158,7 @@ export default {
         slider.noUiSlider.on('update', function (values) {
             this.notifications_time_start = values[0]
             this.notifications_time_end = values[1]
+            
 
             values[0] = parseInt(values[0])
             if (values[0] <= 12) {
@@ -174,6 +180,7 @@ export default {
 
             rangeSliderValueElement.innerHTML = values.join(' - ');
         });
+
     },
     methods: {
 
@@ -193,6 +200,7 @@ export default {
                 console.log("i vibrated");
                 navigator.vibrate(500);
             }
+            console.log(this.$store)
         },
         testNotification(){
             console.log("i sent popup")
@@ -224,10 +232,16 @@ export default {
                 this.notifications_time_end = doc.data().notifications_time_end,
                 this.sound = doc.data().sound,
                 this.vibration = doc.data().vibration
+                this.$store.state.user.permissionN = doc.data().notifications;
+                this.$store.state.user.permissionV = doc.data().vibration;
+                this.$store.state.user.permissionS = doc.data().sound;
+                this.$store.state.user.notificationTimeStart = doc.data().notifications_time_start;
+                this.$store.state.user.notificationTimeEnd = doc.data().notifications_time_end;
         })},
 
         async checkNotificationsState() {
             if (document.getElementById('notifications').checked) {
+            this.$store.state.user.permissionN = true
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
@@ -240,6 +254,7 @@ export default {
             batch.update(sfRef, {notifications: true});
             await batch.commit();
             } else {
+            this.$store.state.user.permissionN = false
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
@@ -256,6 +271,7 @@ export default {
 
         async checkVibrationState() {
             if (document.getElementById('vibration').checked) {
+            this.$store.state.user.permissionV = true
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
@@ -268,6 +284,7 @@ export default {
             batch.update(sfRef, {vibration: true});
             await batch.commit();
             } else {
+            this.$store.state.user.permissionV = false
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
@@ -284,6 +301,7 @@ export default {
 
         async checkSoundState() {
             if (document.getElementById('sound').checked) {
+            this.$store.state.user.permissionS = true
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
@@ -296,6 +314,7 @@ export default {
             batch.update(sfRef, {sound: true});
             await batch.commit();
             } else {
+            this.$store.state.user.permissionS = false
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
@@ -314,7 +333,7 @@ export default {
             var NotiValues = document.getElementById('slider-range-value').innerHTML.split(" - ")
             var NotiStartValue = NotiValues[0]
             var NotiEndValue = NotiValues[1]
-
+            
             var NotiStartNoonTime = NotiStartValue.split(" ")[1]
             var NotiStartValue = NotiStartValue.split(" ")[0]
             NotiStartValue = parseInt(NotiStartValue) 
@@ -330,7 +349,8 @@ export default {
             if (NotiEndNoonTime == "PM"){
                 NotiEndValue = NotiEndValue + 12
             }
-
+            this.$store.state.user.notificationTimeStart = NotiStartValue
+            this.$store.state.user.notificationTimeEnd = NotiEndValue
             // STORING TO FIREBASE
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
@@ -406,9 +426,17 @@ export default {
             vibration: true
             });
             await batch.commit();
+            document.getElementById('notifications').checked = true
+            document.getElementById('vibration').checked = true
+            document.getElementById('sound').checked = true
+            slider.noUiSlider.set([8, 20]);
+            document.getElementById('custom_daily_amount').value = 2000
+            document.getElementById('custom_portion_size').value = 250
+            
         },
 
         async applyChanges() {
+            console.log("apply")
             await Promise.all([
                 this.checkNotificationsState(),
                 this.checkVibrationState(),
