@@ -118,7 +118,7 @@ let beverages = [
 export default {
     name: "top-header",
     mounted() {
-        this.random();
+
         var small_drink_button = document.getElementById("small-drink")
         small_drink_button.addEventListener("click", clickSmallDrink)
 
@@ -131,11 +131,8 @@ export default {
         var custom_drink_button = document.getElementById("custom-drink")
         custom_drink_button.addEventListener("click", clickCustomDrink)
     },
-    methods: {
-        random() {
-           console.log("here @Reporting Page")
-        }
-        
+    methods: {  
+              
     },
     data() {
         return {    
