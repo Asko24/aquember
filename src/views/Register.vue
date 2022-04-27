@@ -94,7 +94,7 @@ export default {
             try{
                 const user = await createUserWithEmailAndPassword(getAuth(), this.email, this.password)
                 this.updateFirestore()
-                this.$router.replace({name: "secret"});
+                this.$router.replace({name: "login"});
                 console.log(user)
             }catch(e){
                 console.log(e.message)

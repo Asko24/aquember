@@ -121,28 +121,30 @@ export default {
         onSelectedChange(event) {
             this.baverage = event.target.value
             // this.water_multiplier = event.target.value.multiplier
-        
-            console.log("baverage:",this.baverage,"multiplier", this.water_multiplier)
+            console.log("baverage:",this.baverage)
         },
         async addDrink() {
             if(!(this.water_amount > 0)){
                 alert("Wybierz lub podaj ilość wypitego napoju.")
             }else{
                 console.log(this.baverage)
+                var data = {}
+                data[this.baverage] = this.water_amount
+
                 const userEmail = this.$store.state.user.data.email
-                const q = query(collection(db, "users"), where("email","==", "a@a.com"));
+                const q = query(collection(db, "users"), where("email","==", userEmail));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
                     this.doc_id = doc.id
                 })
-
-                // this.beverage = baverage.Name
-                // this.water_amount *= baverage.multiplier
-                console.log(doc, this.baverage)
-                // const batch = writeBatch(db);
-                // const sfRef = doc(db, "users", this.docid);
-                // batch.update(sfRef, {notifications: true});
-                // await batch.commit();
+                console.log("baverage:", "data:", data)
+                const batch = writeBatch(db);
+                console.log("działa")
+                const docRef = doc(db, "users/"+this.doc_id+"/water_base/"+this.date+"/drinks/"+this.time)
+                batch.set(docRef, data)
+                await batch.commit();
+                alert("Świetnie!")
+                this.$router.replace({name: "home"});
             }
         }
     
