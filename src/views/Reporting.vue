@@ -4,26 +4,26 @@
             <div class="row no vertical-parent dark" style="flex:3; ">
                 <div class="no row vertical-center" >
                     <div class="no col-3">
-                        Today
+                        {{ date }}
                     </div>
                     <div class="no col-6">
                     </div>
                     <div class="no col-3">
-                        13:00
+                        {{ time }}
                     </div>
                 </div>
                 
             </div>
             <div class="no row" style="padding:0px;margin:0px; flex:8;">
-                    <div class="no col-4" id = "small-drink">
+                    <div @click="addSmall()" class="no col-4" id = "small-drink">
                         <img src="../assets/icons/ShotGlass0.png" class="img-fluid rounded float-left"  height=50% alt="aaa">
                         125 ml
                     </div>
-                    <div class="no col-4" id = "medium-drink">
+                    <div @click="addMedium()" class="no col-4" id = "medium-drink">
                         <img src="../assets/icons/ShotGlass1.png" class="img-fluid rounded float-left"   alt="aaa">
                         250 ml
                     </div>
-                    <div class="no col-4" id = "big-drink">
+                    <div @click="addBig()" class="no col-4" id = "big-drink">
                         <img src="../assets/icons/ShotGlass.png" class="img-fluid rounded float-left"   alt="aaa">
                         375 ml
                      </div>
@@ -31,7 +31,7 @@
                     <div class="no row">
                         
                         <div class="no col-12">
-                            <input type="text" class="inputs" name="Custom" id="Custom" style="margin-bottom:16px;margin-top:0px;">
+                            <input @change="addCustom($event)" type="text" class="inputs" id="Custom" style="margin-bottom:16px;margin-top:0px;">
                         </div>
                         
                     </div>
@@ -45,14 +45,11 @@
                     <div class = "no col-12">
 <input list="ice-cream-flavors" class="inputs" style="width:90%" id="ice-cream-choice" name="ice-cream-choice" />
 
-        <datalist id="ice-cream-flavors" style="width:100%">
-            <option value="Water"> </option>
-            <option value="Apple Juice"></option>
-            <option value="Orange Juice"></option>
-            <option value="Coffee"></option>
-            <option value="Tea"></option>
-            <option value="Beer"></option>
-        </datalist>
+        <select v-model="beverage" @change="onSelectedChange($event)" id="ice-cream-flavors" style="width:100%">
+            <option v-for="item in beverages" v-bind:key="item.Name" :value="item.Name">
+                {{ item.DisplayName}}
+            </option>
+        </select>
 
                     </div>
 
@@ -67,7 +64,7 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:100%; height:70%" id="custom-drink">
+                            <button @click="addDrink()" class="align-middle buttons" style="width:100%; height:70%" id="custom-drink">
                                 APPLY
                             </button>
                         </div>
@@ -85,32 +82,70 @@
 </template>
 
 <script>
+import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
+import db from '../main.js'
 
-let beverages = [
-        {"Name":"water","DisplayName":"Water","multiplier":1},
-        {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
-        {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
-        {"Name":"beer","DisplayName":"Beer","multiplier":0.49},
+// let beverages = [
+//         {"Name":"water","DisplayName":"Water","multiplier":1},
+//         {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
+//         {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
+//         {"Name":"beer","DisplayName":"Beer","multiplier":0.49},
         
-    ]
+//     ]
 
 export default {
     name: "top-header",
-    mounted() {
-
-        var small_drink_button = document.getElementById("small-drink")
-        small_drink_button.addEventListener("click", clickSmallDrink)
-
-        var medium_drink_button = document.getElementById("medium-drink")
-        medium_drink_button.addEventListener("click", clickMediumDrink)
-
-        var big_drink_button = document.getElementById("big-drink")
-        big_drink_button.addEventListener("click", clickBigDrink)
-
-        var custom_drink_button = document.getElementById("custom-drink")
-        custom_drink_button.addEventListener("click", clickCustomDrink)
-    },
     methods: {  
+        addSmall() {
+            this.water_amount = 125
+            console.log("water_amount", this.water_amount)
+        },
+        addMedium() {
+            this.water_amount = 250
+            console.log("water_amount", this.water_amount)
+
+        },
+        addBig() {
+            this.water_amount = 375
+            console.log("water_amount", this.water_amount)
+
+        },
+        addCustom(event) {
+            if(event.target.value>0){
+                this.water_amount = event.target.value
+            }else{
+                this.water_amount = 0
+            }
+            console.log("water_amount", this.water_amount)
+        },
+        onSelectedChange(event) {
+            this.baverage = event.target.value
+            // this.water_multiplier = event.target.value.multiplier
+        
+            console.log("baverage:",this.baverage,"multiplier", this.water_multiplier)
+        },
+        async addDrink() {
+            if(!(this.water_amount > 0)){
+                alert("Wybierz lub podaj ilość wypitego napoju.")
+            }else{
+                console.log(this.baverage)
+                const userEmail = this.$store.state.user.data.email
+                const q = query(collection(db, "users"), where("email","==", "a@a.com"));
+                const querySnapshot = await getDocs(q);
+                querySnapshot.forEach((doc) => {
+                    this.doc_id = doc.id
+                })
+
+                // this.beverage = baverage.Name
+                // this.water_amount *= baverage.multiplier
+                console.log(doc, this.baverage)
+                // const batch = writeBatch(db);
+                // const sfRef = doc(db, "users", this.docid);
+                // batch.update(sfRef, {notifications: true});
+                // await batch.commit();
+            }
+        }
+    
 
     },
     data() {
@@ -120,30 +155,17 @@ export default {
                 {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
                 {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
                 {"Name":"beer","DisplayName":"Beer","multiplier":0.49},
-                {"Name":"water","DisplayName":"Water","multiplier":1},
-                {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
-                {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
-                {"Name":"beer","DisplayName":"Beer","multiplier":0.49},
-                {"Name":"water","DisplayName":"Water","multiplier":1},
-                {"Name":"appleJuice","DisplayName":"Apple Juice","multiplier":0.81},
-                {"Name":"orangeJuice","DisplayName":"Orange Juice","multiplier":0.9},
-                {"Name":"beer","DisplayName":"Beer","multiplier":0.49}
-            ]
+                {"Name":"coffee","DisplayName":"Coffee","multiplier":0.5},
+                {"Name":"tee","DisplayName":"Tee","multiplier":0.6}
+            ],
+            date: '27.04.2022',
+            time: '13:00',
+            water_amount: 0,
+            beverage:'',
+            doc_id:'',
         }
     }
 
-}
-function clickSmallDrink(){
-    console.log("SmallDrink")
-}
-function clickMediumDrink(){
-    console.log("MediumDrink")
-}
-function clickBigDrink(){
-    console.log("BigDrink")
-}
-function clickCustomDrink(){
-    console.log("CustomDrink")
 }
 </script>
 
