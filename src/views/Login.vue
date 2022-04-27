@@ -140,7 +140,7 @@ import db from '../main.js'
                 let hour = d.getHours();
                 console.log("hour: ", hour)
             console.log("user permission:", this.$store.state.user.permissionN)
-            if(this.$store.state.user.permissionN && this.$store.state.user.notificationTimeStart <= hour && hour < this.$store.state.user.notificationTimeEnd){
+            if(this.$store.state.user.loggedIn && this.$store.state.user.permissionN && this.$store.state.user.notificationTimeStart <= hour && hour < this.$store.state.user.notificationTimeEnd){
                 console.log("notification status: ", this.$store.state.user.permissionN, this.$store.state.user.permissionV, this.$store.state.user.permissionS)
                 Notification.requestPermission().then(function(result){
                 console.log(result)
