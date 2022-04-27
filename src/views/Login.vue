@@ -42,41 +42,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row no vertical-parent" style="flex:4;">
-                <div class="no vertical-center" >
-                    <p class="no">OR</p>
-                    
-                </div>
-                
-            </div>
-            <div class="row no vertical-parent" style="flex:28;">
-                <div class="no vertical-center ">
-                    <div class="no row">
-                        <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%; margin-top:8px; margin-bottom:8px;">
-                                LOGIN WITH FACEBOOK
-                            </button>
-                        </div>
-                        
-                    </div>
-                    <div class="no row">
-                        <div class="no col-12 " >
-                            <button class="align-middle buttons" style="width:95%; height:70%; margin-top:8px; margin-bottom:8px;">
-                                LOGIN WITH TWITTER
-                            </button>
-                        </div>
-                        
-                    </div>
-                    <div class="no row">
-                        <div class="no col-12 " >
-                            <button class="align-middle buttons" style="width:95%; height:70%; margin-top:8px; margin-bottom:8px;" >
-                                LOGIN WITH GOOGLE
-                            </button>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
+           
+            
         </div>    
     </div>
     
