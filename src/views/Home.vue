@@ -99,7 +99,7 @@ export default {
             // console.log("iteracje: ", this.totalWaterIterations)
             console.log("aktualna suma wypitej wody w dniu: ", this.totalWater)
 
-            document.getElementById("dailyamount").innerHTML = this.DailyAmount + " ml";;
+            document.getElementById("dailyamount").innerHTML = this.DailyAmount + " ml";
 
             var AlreadyDrank = parseInt(document.getElementById("alreadydrank").innerHTML.split(" ")[0])
             if (this.totalWater > AlreadyDrank){

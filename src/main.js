@@ -17,6 +17,7 @@ import 'nouislider/dist/nouislider.css';
 //import 'bootstrap'
 import {initializeApp} from 'firebase/app';
 import { getFirestore } from "firebase/firestore";
+import './registerServiceWorker'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAm0-V9k6vS0YznAIxZnVZWxluj3tv8xeY",
