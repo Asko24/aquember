@@ -135,12 +135,6 @@ export default {
     name: "top-header",
     mounted() {
 
-        // var reset_defaults_button = document.getElementById("reset-defaults")
-        // reset_defaults_button.addEventListener("click", clickResetDefaults)
-
-        // var apply_changes_button = document.getElementById("apply-changes")
-        // apply_changes_button.addEventListener("click", clickApplyChanges)
-
         var slider = document.getElementById('slider');
         slider.innerHTML = ""
 
@@ -182,9 +176,23 @@ export default {
         });
     },
     methods: {
-        testVibrate() {
-            console.log("i vibrated");
-            navigator.vibrate(500);
+
+        async sendVibrate() {
+            // Default at false
+            var canVibrate = false
+            // Check firebase for vibration permissions
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            // Overwrite with permissions status from firebase
+            canVibrate = (doc.data()["vibration"]);
+            })
+            // Only if 'vibration: true' on firebase
+            if (canVibrate == true){
+                console.log("i vibrated");
+                navigator.vibrate(500);
+            }
         },
         testNotification(){
             console.log("i sent popup")
