@@ -26,7 +26,7 @@
 
     <div class="no row align-items-center justify-content-center" style="flex:5">
         <div id="waterstatus" class="no row" style="position: relative">
-            <div id="currentlydrank" style="position: absolute; bottom:20%; left:-15%; font-weight:bold">200 ml</div>
+            <div id="alreadydrank" style="position: absolute; bottom:20%; left:-15%; font-weight:bold">200 ml</div>
             <div style="position: absolute; bottom:20%; left:0%; font-weight:bold">/</div>
             <div id="dailyamount" style="position: absolute; bottom:20%; left:15%; font-weight:bold">2000 ml</div>
         </div>
@@ -39,7 +39,7 @@
         <router-link to="/home" style="width:33%">
             <img src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
         </router-link>
-        <img src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
+        <img @click="addToDrankWater()" src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
     </div>
 </div>
 </div>
@@ -47,6 +47,8 @@
 
 <script>
 import {getAuth, signOut} from "firebase/auth"
+import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
+import db from '../main.js'
 import { mapGetters } from "vuex"
 
 export default {
@@ -83,7 +85,36 @@ export default {
                 this.notifications_time_end = doc.data().notifications_time_end,
                 this.sound = doc.data().sound,
                 this.vibration = doc.data().vibration
-        })}
+        })},
+
+        async updateDailyAmount() {
+            var DailyAmount = 2000
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            DailyAmount = (doc.data()["custom_daily_amount"]);
+        })
+        document.getElementById("dailyamount").innerHTML = DailyAmount + " ml";
+        },
+
+        async addToDrankWater() {
+            var DailyAmount = 2000
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            DailyAmount = (doc.data()["custom_daily_amount"]);
+            })
+
+            var AlreadyDrank = parseInt(document.getElementById("alreadydrank").innerHTML.split(" ")[0])
+            AlreadyDrank = AlreadyDrank + 200
+            document.getElementById("alreadydrank").innerHTML = AlreadyDrank + " ml";
+
+            if (AlreadyDrank > DailyAmount){
+                document.getElementById("alreadydrank").style.color = "red";
+            }
+        }
 
     },
     computed: {
