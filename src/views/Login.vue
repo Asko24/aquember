@@ -85,6 +85,8 @@
 
 <script>
 import {getAuth, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth"
+import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
+import db from '../main.js'
 
     export default {
         data() {
@@ -109,14 +111,91 @@ import {getAuth, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/
                     await signInWithEmailAndPassword(getAuth(), this.email, this.password)
                     this.$router.replace({name: "home"})
                     console.log("Zalogowano:", userData)  
+                    console.log(this.$store.state.user.loggedIn)
+                    // await getDataFromDatabase()
+                    const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data(),); 
+                this.user_doc_id = doc.id;
+                this.$store.state.user.permissionN = doc.data().notifications;
+                this.$store.state.user.permissionV = doc.data().vibration;
+                this.$store.state.user.permissionS = doc.data().sound;
+                this.$store.state.user.notificationTimeStart = doc.data().notifications_time_start;
+                this.$store.state.user.notificationTimeEnd = doc.data().notifications_time_end;
+        })
+                    this.backgroundNotif()
                 }catch(e){
                     console.log(e.message)
                     this.error = e.message
                 }
+            },
+            backgroundNotif(){
+            if(this.$store.state.user.loggedIn){
+                console.log("user is logged in")
+            }
+            console.log(this.$store.state.user.notificationTimeStart, this.$store.state.user.notificationTimeEnd)
+                const d = new Date();
+                let hour = d.getHours();
+                console.log("hour: ", hour)
+            console.log("user permission:", this.$store.state.user.permissionN)
+            if(this.$store.state.user.permissionN && this.$store.state.user.notificationTimeStart <= hour && hour < this.$store.state.user.notificationTimeEnd){
+                console.log("notification status: ", this.$store.state.user.permissionN, this.$store.state.user.permissionV, this.$store.state.user.permissionS)
+                Notification.requestPermission().then(function(result){
+                console.log(result)
+                })
+                if(this.$store.state.user.permissionV){
+                    navigator.vibrate(500);
+                }
+                if(this.$store.state.user.permissionS){
+                    playSound(importedSound)
+                }
+                
+                var img = importedAppIcon;
+                var text = 'Time to drink water!';
+                var notification = new Notification('Aquember friendly reminds', { body: text, icon: img });
+                
+            }
+            // console.log("permission: ", this.$store.state.user.permission)
+            // console.log(this.$store.state.user.loggedIn)
+            
+            setTimeout(() => {
+            console.log("Delayed for 30 second.");
+            this.backgroundNotif()
+            }, "30000")
             }
         },
             
     } 
+
+    function playSound(url) {
+        const audio = new Audio(url);
+        audio.play();
+    }
+
+    async function getDataFromDatabase() {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data(),); 
+                this.user_doc_id = doc.id;
+                this.custom_daily_amount = doc.data().custom_daily_amount
+                this.custom_portion_size = doc.data().custom_portion_size
+                this.notifications = doc.data().notifications
+                this.notifications_time_start = doc.data().notifications_time_start,
+                this.notifications_time_end = doc.data().notifications_time_end,
+                this.sound = doc.data().sound,
+                this.vibration = doc.data().vibration
+                this.$store.state.user.permissionN = this.notifications
+                this.$store.state.user.permissionV = this.vibration
+                this.$store.state.user.permissionS = this.sound
+                this.$store.state.user.notificationTimeStart = this.notifications_time_start
+                this.$store.state.user.notificationTimeEnd = this.notifications_time_end
+        })}
+import importedAppIcon from "../assets/icons/AppIcon.png"
+import importedSound from "../assets/sounds/waterdrop2.mp3"
 </script>
 
 <style scoped>

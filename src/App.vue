@@ -25,6 +25,7 @@ export default {
     const store = useStore();
     this.user = computed(() => this.$store.state.user);
     this.$store.commit("SET_LOGGED_IN", null);
+    
   },
   data(){
     return {
@@ -32,6 +33,7 @@ export default {
     }
   }
 }
+
 
 </script>
 
