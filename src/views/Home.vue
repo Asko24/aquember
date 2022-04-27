@@ -26,9 +26,9 @@
 
     <div class="no row align-items-center justify-content-center" style="flex:5">
         <div id="waterstatus" class="no row" style="position: relative">
-            <div id="alreadydrank" style="position: absolute; bottom:20%; left:-15%; font-weight:bold">200 ml</div>
+            <div id="alreadydrank" style="position: absolute; bottom:20%; left:-15%; font-weight:bold">0 ml</div>
             <div style="position: absolute; bottom:20%; left:0%; font-weight:bold">/</div>
-            <div id="dailyamount" style="position: absolute; bottom:20%; left:15%; font-weight:bold">2000 ml</div>
+            <div id="dailyamount" style="position: absolute; bottom:20%; left:15%; font-weight:bold">0 ml</div>
         </div>
     </div>
 
@@ -37,9 +37,9 @@
             <img src="../assets/icons/Cog4.png" style="width:100%" alt="aaa" id="settings">
         </router-link>
         <router-link to="/home" style="width:33%">
-            <img src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
+            <img @click="updateWater()" src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
         </router-link>
-        <img @click="addToDrankWater()" src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
+        <img src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
     </div>
 </div>
 </div>
@@ -98,22 +98,44 @@ export default {
         document.getElementById("dailyamount").innerHTML = DailyAmount + " ml";
         },
 
-        async addToDrankWater() {
-            var DailyAmount = 2000
+        async updateWater() {
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-            DailyAmount = (doc.data()["custom_daily_amount"]);
+            this.userid = doc.id
+            this.DailyAmount = (doc.data()["custom_daily_amount"]);
+            console.log(this.userid, this.DailyAmount)
+        })
+
+            const q2 = query(collection(db, "users/"+this.userid+"/water_base/"+"27.04.2022"+"/drinks/"));
+            const querySnapshot2 = await getDocs(q2);
+            this.totalWaterIterations = 0
+            this.totalWater = 0
+            querySnapshot2.forEach((doc) => {
+                this.dict = doc.data()
+                console.log("dict", this.dict)
+                this.totalWaterIterations += 1
+
+                for (const key in this.dict) {
+                    this.totalWater += this.dict[key]
+                }
             })
+            console.log("iteracje: ", this.totalWaterIterations)
+            console.log("suma wody: ", this.totalWater)
+
+            document.getElementById("dailyamount").innerHTML = this.DailyAmount + " ml";;
 
             var AlreadyDrank = parseInt(document.getElementById("alreadydrank").innerHTML.split(" ")[0])
-            AlreadyDrank = AlreadyDrank + 200
+            if (this.totalWater > AlreadyDrank){
+                AlreadyDrank += this.totalWater - AlreadyDrank
+            }
             document.getElementById("alreadydrank").innerHTML = AlreadyDrank + " ml";
 
-            if (AlreadyDrank > DailyAmount){
-                document.getElementById("alreadydrank").style.color = "red";
+            if (AlreadyDrank > this.DailyAmount){
+                document.getElementById("alreadydrank").style.color = "green";
             }
+
         }
 
     },

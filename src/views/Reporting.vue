@@ -107,8 +107,8 @@ export default {
                 var dateTime = app.computed.now()
                 this.date = dateTime[0]
                 this.time = dateTime[1]
-                document.getElementById("date").innerHTML = this.date
-                document.getElementById("time").innerHTML = this.time
+                // document.getElementById("date").innerHTML = this.date
+                // document.getElementById("time").innerHTML = this.time
                 }, 5000);
         },
         addSmall() {
@@ -127,24 +127,24 @@ export default {
         },
         addCustom(event) {
             if(event.target.value>0){
-                this.water_amount = event.target.value
+                this.water_amount = parseInt(event.target.value)
             }else{
                 this.water_amount = 0
             }
             console.log("water_amount", this.water_amount)
         },
         onSelectedChange(event) {
-            this.baverage = event.target.value
+            this.beverage = event.target.value
             // this.water_multiplier = event.target.value.multiplier
-            console.log("baverage:",this.baverage)
+            console.log("baverage:",this.beverage)
         },
         async addDrink() {
             if(!(this.water_amount > 0)){
                 alert("Wybierz lub podaj ilość wypitego napoju.")
             }else{
-                console.log(this.baverage)
+                console.log(this.beverage)
                 var data = {}
-                data[this.baverage] = this.water_amount
+                data[this.beverage] = this.water_amount
 
                 const userEmail = this.$store.state.user.data.email
                 const q = query(collection(db, "users"), where("email","==", userEmail));
