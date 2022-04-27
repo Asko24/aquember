@@ -1,6 +1,6 @@
 <template>
 <div id="Dashboard" class="container-fluid w-100 vh-100">
-<div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
+<div class="row align-items-center h-100 d-flex flex-column" style="padding:0px; position:relative; ">
     <div class="no navbar top" style="flex:2">
             <img @click="signOut()" src="../assets/icons/exit.png" style="width:25%"  alt="aaa" id="exit">
         <router-link to="/usersettings" style="width:25%">
@@ -11,35 +11,45 @@
     <div class="no row align-items-center justify-content-center" style="flex:5">
         <div class="no row">
             <router-link to="/Reporting">
-                <img src="../assets/icons/ShotGlass.png" class="mx-auto d-block" style="width: 55%;" alt="aaa" id="drink">
+                <img src="../assets/icons/ShotGlass.png" class="mx-auto d-block" style="width: 45%;" alt="aaa" id="drink">
             </router-link>
         </div>
     </div>
 
     <div class="no row align-items-center justify-content-center" style="flex:5">
         <div id="waterbubble" class="no row" style="position: relative">
-            <img src="../assets/icons/WaterDropEmpty.png" class="mx-auto d-block" alt="aaa">
+            <img src="../assets/icons/WaterDropEmptyS.png" class="mx-auto d-block" style="width:90%" alt="aaa">
             <!-- <div style="position: absolute; bottom:15%; left:33%">200 ml</div>
             <div style="position: absolute; bottom:75%; left:33%">2000 ml</div> -->
         </div>
     </div>
 
-    <div class="no row align-items-center justify-content-center" style="flex:5">
+    <div class="no row" style="flex:5">
         <div id="waterstatus" class="no row" style="position: relative">
-            <div id="alreadydrank" style="position: absolute; bottom:20%; left:-15%; font-weight:bold">0 ml</div>
-            <div style="position: absolute; bottom:20%; left:0%; font-weight:bold">/</div>
-            <div id="dailyamount" style="position: absolute; bottom:20%; left:15%; font-weight:bold">0 ml</div>
+            <div id="alreadydrank" style="position: absolute;  left:-15%; font-weight:bold">0 ml</div>
+            <div style="position: absolute;  left:0%; font-weight:bold">/</div>
+            <div id="dailyamount" style="position: absolute; left:15%; font-weight:bold">0 ml</div>
         </div>
     </div>
-
-    <div class="no navbar bottom" style="flex:2">
+    <!-- <div class="no navbar bottom" style="flex:2">
+        <div class="no col-4">
+            <img src="../assets/icons/Cog4.png" alt="aaa" id="settings2">
+        </div>
+        <div class="no col-4">
+test2
+        </div>
+        <div class="no col-4">
+test3
+        </div>
+    </div> -->
+    <div class="no navbar bottom" style="flex:2; position:absolute; bottom:0px;">
         <router-link to="/appsettings" style="width:33%">
             <img src="../assets/icons/Cog4.png" style="width:100%" alt="aaa" id="settings">
         </router-link>
         <router-link to="/home" style="width:33%">
             <img src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
         </router-link>
-        <img src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
+            <img src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
     </div>
 </div>
 </div>
@@ -51,7 +61,7 @@ import { query, collection, writeBatch, doc, getDocs, where } from "firebase/fir
 import db from '../main.js'
 import { mapGetters } from "vuex"
 import app from '../App.vue'
-
+import importedAppIcon from "../assets/icons/AppIcon.png"
 export default {
     mounted() {
 
