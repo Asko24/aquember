@@ -37,7 +37,7 @@
             <img src="../assets/icons/Cog4.png" style="width:100%" alt="aaa" id="settings">
         </router-link>
         <router-link to="/home" style="width:33%">
-            <img @click="updateWater()" src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
+            <img src="../assets/icons/home.png" style="width:100%" alt="aaa" id="home">
         </router-link>
         <img src="../assets/icons/Calendar.png" style="width:33%" alt="aaa" id="calendar">
     </div>
@@ -50,11 +50,12 @@ import {getAuth, signOut} from "firebase/auth"
 import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
 import db from '../main.js'
 import { mapGetters } from "vuex"
+import app from '../App.vue'
 
 export default {
     mounted() {
 
-        // zrobcie tu zeby bylo wywolanie metod na sprawdzanie wody
+        this.updateWater()
 
         },
 
@@ -71,58 +72,32 @@ export default {
             
         },
 
-        async getDataFromDatabase() {
-            const userEmail = this.$store.state.user.data.email
-            const q = query(collection(db, "users"), where("email","==", userEmail));
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data(),); 
-                this.user_doc_id = doc.id;
-                this.custom_daily_amount = doc.data().custom_daily_amount
-                this.custom_portion_size = doc.data().custom_portion_size
-                this.notifications = doc.data().notifications
-                this.notifications_time_start = doc.data().notifications_time_start,
-                this.notifications_time_end = doc.data().notifications_time_end,
-                this.sound = doc.data().sound,
-                this.vibration = doc.data().vibration
-        })},
-
-        async updateDailyAmount() {
-            var DailyAmount = 2000
-            const userEmail = this.$store.state.user.data.email
-            const q = query(collection(db, "users"), where("email","==", userEmail));
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-            DailyAmount = (doc.data()["custom_daily_amount"]);
-        })
-        document.getElementById("dailyamount").innerHTML = DailyAmount + " ml";
-        },
-
         async updateWater() {
+            this.date = app.computed.now()[0]
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
             this.userid = doc.id
             this.DailyAmount = (doc.data()["custom_daily_amount"]);
-            console.log(this.userid, this.DailyAmount)
+            console.log("dla usera -", this.userid, "- maks wody: ", this.DailyAmount)
         })
 
-            const q2 = query(collection(db, "users/"+this.userid+"/water_base/"+"27.04.2022"+"/drinks/"));
+            const q2 = query(collection(db, "users/"+this.userid+"/water_base/"+this.date+"/drinks/"));
             const querySnapshot2 = await getDocs(q2);
             this.totalWaterIterations = 0
             this.totalWater = 0
             querySnapshot2.forEach((doc) => {
                 this.dict = doc.data()
-                console.log("dict", this.dict)
+                // console.log("dict", this.dict)
                 this.totalWaterIterations += 1
 
                 for (const key in this.dict) {
                     this.totalWater += this.dict[key]
                 }
             })
-            console.log("iteracje: ", this.totalWaterIterations)
-            console.log("suma wody: ", this.totalWater)
+            // console.log("iteracje: ", this.totalWaterIterations)
+            console.log("aktualna suma wypitej wody w dniu: ", this.totalWater)
 
             document.getElementById("dailyamount").innerHTML = this.DailyAmount + " ml";;
 

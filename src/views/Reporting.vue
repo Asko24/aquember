@@ -136,7 +136,7 @@ export default {
         onSelectedChange(event) {
             this.beverage = event.target.value
             // this.water_multiplier = event.target.value.multiplier
-            console.log("baverage:",this.beverage)
+            console.log("beverage:",this.beverage)
         },
         async addDrink() {
             if(!(this.water_amount > 0)){
@@ -152,13 +152,13 @@ export default {
                 querySnapshot.forEach((doc) => {
                     this.doc_id = doc.id
                 })
-                console.log("baverage:", "data:", data)
+                console.log("beverage:", "data:", data)
                 const batch = writeBatch(db);
                 
                 const docRef = doc(db, "users/"+this.doc_id+"/water_base/"+this.date+"/drinks/"+this.time)
                 batch.set(docRef, data)
                 await batch.commit();
-                alert("Świetnie!")
+                alert("You have successfully registered your drink!")
                 this.$router.replace({name: "home"});
             }
         }
