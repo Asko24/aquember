@@ -29,7 +29,7 @@
                 <div class="no" >
                     <div class="no row">
                         <div class="no col-2">
-                            <input type="radio" name="gender" value="Male" id="Male">
+                            <input type="radio" v-model="gender" value="Male" id="Male">
                         </div>
                         <div class="no col-1">
                             <label for="Male">Male</label>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="no row">
                         <div class="no col-2">
-                            <input type="radio" name="gender" value="Female" id="Female">
+                            <input type="radio" v-model="gender" value="Female" id="Female">
                         </div>
                         <div class="no col-1">
                             <label for="Female">Female</label>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="no row">
                         <div class="no col-2">
-                            <input type="radio" name="gender" value="Other" id="Other">
+                            <input type="radio" v-model="gender" value="Other" id="Other">
                         </div>
                         <div class="no col-1">
                             <label for="Other">Other</label>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="no row">
                         <div class="no col-2">
-                            <input type="radio" name="gender" value="Unspecified" id="Unspecified">
+                            <input type="radio" v-model="gender" value="Unspecified" id="Unspecified">
                         </div>
                         <div class="no col-1">
                             <label for="Unspecified">Unspecified</label>
@@ -70,7 +70,7 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button class="align-middle buttons" style="width:95%; height:70%;" id="apply-user-changes">
+                            <button @click="updateSettings()" class="align-middle buttons" style="width:95%; height:70%;" id="apply-user-changes">
                                 Apply Changes
                             </button>
                         </div>
@@ -90,16 +90,44 @@
 </template>
 
 <script>
+import { getAuth, updatePassword } from "firebase/auth";
+import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
+import db from '../main.js'
 
 export default {
-    mounted(){
-        var apply_user_changes_button = document.getElementById("apply-user-changes")
-        apply_user_changes_button.addEventListener("click", clickApplyUserChanges)
-    }
-}
+    methods: {
+        updateSettings() {
+            if(this.new_password === ''){
+                // do nothing
+            }
+            else if(this.new_password.length > 6){
+                const user = getAuth().currentUser;
+                updatePassword(user, this.new_password).then(() => {
+                    console.log("hasło zostało zmienione")
+                }).catch((error) => {
+                    console.log(error.message)
+                });
+            }else{
+                alert("Hasło musi składać się z min. 6 znaków.")
+            }
 
-function clickApplyUserChanges(){
-    console.log("ApplyUserChanges")
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {gender: this.gender});
+            await batch.commit();
+        }
+    },
+    data() {
+        new_password = '',
+        gender = ''
+    }
 }
 
 </script>
