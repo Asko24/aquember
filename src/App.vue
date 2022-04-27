@@ -1,6 +1,6 @@
 <template>
-  <top-header></top-header>
-  <nav>
+  <!-- <top-header></top-header> -->
+  <!-- <nav>
     <router-link to="/oldhomeview">OldHomeView</router-link> |
     <router-link to="/welcome">Welcome</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -9,7 +9,7 @@
     <router-link to="/reporting">Reporting</router-link> | 
     <router-link to="/appsettings">AppSettings</router-link> |
     <router-link to="/usersettings">UserSettings</router-link> |
-  </nav>
+  </nav> -->
   <router-view/>
 </template>
 

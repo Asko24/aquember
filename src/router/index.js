@@ -42,7 +42,7 @@ const routes = [
     component: Secret
   },
   {
-    path: '/welcome',
+    path: '/',
     name: 'Welcome',
     component: Welcome
   },
