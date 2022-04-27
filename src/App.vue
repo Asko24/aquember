@@ -20,6 +20,18 @@ import { computed , beforeMount} from "vue"
 import { useStore } from 'vuex'
 
 export default {
+  computed: {
+    now: function () {
+        const current = new Date()
+        var month = current.getMonth()+1
+        if( month < 10){
+          month = `0${month}`
+        }
+        const date = `${current.getDate()}.${month}.${current.getFullYear()}`
+        const time = `${current.getHours()}.${current.getMinutes()}`
+    return [date,time]
+    }
+  },
   components:{'top-header':TopHeader},
   beforeMount() {
     const store = useStore();

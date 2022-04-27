@@ -3,12 +3,12 @@
         <div class="row align-items-center h-100 d-flex flex-column" style="padding:0px;">
             <div class="row no vertical-parent dark" style="flex:3; ">
                 <div class="no row vertical-center" >
-                    <div class="no col-3">
+                    <div id="date" class="no col-3">
                         {{ date }}
                     </div>
                     <div class="no col-6">
                     </div>
-                    <div class="no col-3">
+                    <div id="time" class="no col-3">
                         {{ time }}
                     </div>
                 </div>
@@ -84,6 +84,7 @@
 <script>
 import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
 import db from '../main.js'
+import app from '../App.vue'
 
 // let beverages = [
 //         {"Name":"water","DisplayName":"Water","multiplier":1},
@@ -95,7 +96,21 @@ import db from '../main.js'
 
 export default {
     name: "top-header",
+    mounted(){
+            this.date = app.computed.now()[0]
+            this.time = app.computed.now()[1]
+            this.setDateTime()
+    },
     methods: {  
+        setDateTime() {
+            setInterval(function () {
+                var dateTime = app.computed.now()
+                this.date = dateTime[0]
+                this.time = dateTime[1]
+                document.getElementById("date").innerHTML = this.date
+                document.getElementById("time").innerHTML = this.time
+                }, 5000);
+        },
         addSmall() {
             this.water_amount = 125
             console.log("water_amount", this.water_amount)
@@ -139,7 +154,7 @@ export default {
                 })
                 console.log("baverage:", "data:", data)
                 const batch = writeBatch(db);
-                console.log("działa")
+                
                 const docRef = doc(db, "users/"+this.doc_id+"/water_base/"+this.date+"/drinks/"+this.time)
                 batch.set(docRef, data)
                 await batch.commit();
@@ -147,7 +162,6 @@ export default {
                 this.$router.replace({name: "home"});
             }
         }
-    
 
     },
     data() {
