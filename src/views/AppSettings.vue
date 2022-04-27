@@ -11,14 +11,7 @@
             <div class="row no vertical-parent" style="flex:25;">
                 <div class="no vertical-center ">
                     <h2>General Settings</h2>
-                    <!-- <div class="no row">
-                        <div class="no col-4 ">
-                            <input type="checkbox" id="notifications" class="align-middle" style="width:95%; height:100%; border-radius:8px"/>
-                        </div>
-                        <div class="no col-4 ">
-                            <label for="notifications" class="toggle-switchy">Notificatios</label>
-                        </div>  
-                    </div> -->
+
                     <div class="no row">
                         <div class="no col-4 ">
                             <label for="notifications" class="toggle-switchy" data-style="rounded">
@@ -94,7 +87,7 @@
                     <div class="no row">
                         <p>Custom Daily Amount</p>
                         <div class="no col-12 ">
-                            <input type="text" v-model="custom_daily_amount" class="inputs" style="margin-top:0px;margin-bottom:16px"> ml
+                            <input id="custom_daily_amount" type="text" v-model="custom_daily_amount" class="inputs" style="margin-top:0px;margin-bottom:16px"> ml
                         </div>  
                     </div>
 
@@ -102,7 +95,7 @@
                         <p>Custom Portion Size</p>
                         <div class="no col-12" >
                             <div class="no col-12 ">
-                                <input type="text" v-model="custom_portion_size" class="inputs" style="margin-top:0px;"> ml
+                                <input id="custom_portion_size" type="text" v-model="custom_portion_size" class="inputs" style="margin-top:0px;"> ml
                             </div>  
                         </div>   
                     </div>
@@ -113,14 +106,14 @@
                 <div class="no vertical-center ">
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button @click="testTime()" class="align-middle buttons" style="width:95%; height:70%;" id="reset-defaults">
+                            <button @click="resetToDefaultData()" class="align-middle buttons" style="width:95%; height:70%;" id="reset-defaults">
                                 Reset to Default Data
                             </button>
                         </div>  
                     </div>
                     <div class="no row">
                         <div class="no col-12 ">
-                            <button @click="getDataFromDatabase()" class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
+                            <button @click="applyChanges()" class="align-middle buttons" style="width:95%; height:70%" id="apply-changes">
                                 Apply Changes
                             </button>
                         </div>  
@@ -135,7 +128,7 @@
 </template>
 
 <script>
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, writeBatch, doc, getDocs, where } from "firebase/firestore";
 import db from '../main.js'
 
 export default {
@@ -208,29 +201,222 @@ export default {
             var seconds = now.getSeconds();
             console.log(seconds);
         },
-
-        defaultSettings() {
-            this.custom_daily_amount = 2000,
-            this.custom_portion_size = 250,
-            this.notifications = true,
-            this.notifications_time_start = 8,
-            this.notifications_time_end = 20,
-            this.sound = true,
-            this.vibration = true
-        },
+        
         async getDataFromDatabase() {
-            // IN PROGRESS
             const userEmail = this.$store.state.user.data.email
             const q = query(collection(db, "users"), where("email","==", userEmail));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  console.log(doc.id, " => ", doc.data()); 
-            
-        })}
+                console.log(doc.id, " => ", doc.data(),); 
+                this.user_doc_id = doc.id;
+                this.custom_daily_amount = doc.data().custom_daily_amount
+                this.custom_portion_size = doc.data().custom_portion_size
+                this.notifications = doc.data().notifications
+                this.notifications_time_start = doc.data().notifications_time_start,
+                this.notifications_time_end = doc.data().notifications_time_end,
+                this.sound = doc.data().sound,
+                this.vibration = doc.data().vibration
+        })},
+
+        async checkNotificationsState() {
+            if (document.getElementById('notifications').checked) {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {notifications: true});
+            await batch.commit();
+            } else {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {notifications: false});
+            await batch.commit();
+            }
+        },
+
+        async checkVibrationState() {
+            if (document.getElementById('vibration').checked) {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {vibration: true});
+            await batch.commit();
+            } else {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {vibration: false});
+            await batch.commit();
+            }
+        },
+
+        async checkSoundState() {
+            if (document.getElementById('sound').checked) {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {sound: true});
+            await batch.commit();
+            } else {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {sound: false});
+            await batch.commit();
+            }
+        },
+
+        async checkNotificationsHours() {
+            var NotiValues = document.getElementById('slider-range-value').innerHTML.split(" - ")
+            var NotiStartValue = NotiValues[0]
+            var NotiEndValue = NotiValues[1]
+
+            var NotiStartNoonTime = NotiStartValue.split(" ")[1]
+            var NotiStartValue = NotiStartValue.split(" ")[0]
+            NotiStartValue = parseInt(NotiStartValue) 
+
+            var NotiEndNoonTime = NotiEndValue.split(" ")[1]
+            var NotiEndValue = NotiEndValue.split(" ")[0]
+            NotiEndValue = parseInt(NotiEndValue) 
+ 
+            if (NotiStartNoonTime == "PM"){
+                NotiStartValue = NotiStartValue + 12
+            }
+
+            if (NotiEndNoonTime == "PM"){
+                NotiEndValue = NotiEndValue + 12
+            }
+
+            // STORING TO FIREBASE
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {notifications_time_start: NotiStartValue,
+            notifications_time_end: NotiEndValue
+            });
+            await batch.commit();
+        },
+
+        async checkCustomInputs() {
+            var DailyAmount = document.getElementById('custom_daily_amount').value
+            DailyAmount = parseInt(DailyAmount)
+            var PortionSize = document.getElementById('custom_portion_size').value
+            PortionSize = parseInt(PortionSize)
+
+            // STORING TO FIREBASE
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {custom_daily_amount: DailyAmount,
+            custom_portion_size: PortionSize
+            });
+            await batch.commit();
+        },
+
+        async getNotiStart() {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            console.log(doc.data()["notifications_time_start"]);
+            return (doc.data()["notifications_time_start"]);
+        })},
+
+        async getNotiEnd() {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            console.log(doc.data()["notifications_time_end"]);
+            return (doc.data()["notifications_time_end"]);
+        })},
+
+        async resetToDefaultData() {
+            const userEmail = this.$store.state.user.data.email
+            const q = query(collection(db, "users"), where("email","==", userEmail));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            this.docid = doc.id
+            })
+            const batch = writeBatch(db);
+            const sfRef = doc(db, "users", this.docid);
+            batch.update(sfRef, {
+            custom_daily_amount: 2000,
+            custom_portion_size: 250,
+            notifications: true,
+            notifications_time_start: 8,
+            notifications_time_end: 20,
+            sound: true,
+            vibration: true
+            });
+            await batch.commit();
+        },
+
+        async applyChanges() {
+            await Promise.all([
+                this.checkNotificationsState(),
+                this.checkVibrationState(),
+                this.checkSoundState(),
+                this.checkNotificationsHours(),
+                this.checkCustomInputs()
+            ]);
+        }
+
+
+
     },
+
     data() {
         return {
+            user_doc_id: '',
             custom_daily_amount: 2000,
             custom_portion_size: 250,
             notifications: true,
@@ -245,14 +431,6 @@ export default {
 function playSound(url) {
   const audio = new Audio(url);
   audio.play();
-}
-
-function clickResetDefaults(){
-    console.log("ResetDefaults")
-}
-
-function clickApplyChanges(){
-    console.log("ApplyChanges")
 }
 
 import noUiSlider from 'nouislider';
