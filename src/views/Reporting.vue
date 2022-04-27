@@ -37,20 +37,22 @@
                     </div>
                     
             </div>
+
+
             <div class="row no vertical-parent" style="flex:4;">
                 <div class="no vertical-center">
                     <h2 class="no">Choose a beverage</h2>
                     <div class = "no col-12">
 <input list="ice-cream-flavors" class="inputs" style="width:90%" id="ice-cream-choice" name="ice-cream-choice" />
 
-<datalist id="ice-cream-flavors" style="width:100%">
-    <option value="Water"> </option>
-    <option value="Apple Juice"></option>
-    <option value="Orange Juice"></option>
-    <option value="Coffee"></option>
-    <option value="Tea"></option>
-    <option value="Beer"></option>
-</datalist>
+        <datalist id="ice-cream-flavors" style="width:100%">
+            <option value="Water"> </option>
+            <option value="Apple Juice"></option>
+            <option value="Orange Juice"></option>
+            <option value="Coffee"></option>
+            <option value="Tea"></option>
+            <option value="Beer"></option>
+        </datalist>
 
                     </div>
 
@@ -59,21 +61,6 @@
                 
             </div>
             <div class="row no" style="flex:8;">
-
-  <!-- <div id="div1" style="height: 500px;position:relative;">
-    <div id="div2" style="max-height:100%;overflow:auto;border:1px solid red;">
-      <div id="div3" style="height:1500px;border:5px solid yellow;">hello</div>
-    </div>
-  </div> -->
-
-                <!-- <div class="no" >
-                    <input type="search" list="mylist">
-                    <datalist id="mylist">
-                        <option value="Option 1"></option>
-                        <option value="Option 2"></option>
-                        <option value="Option 3"></option>
-                    </datalist>
-                </div> -->
                 
             </div>
             <div class="row no vertical-parent" style="flex:4;">
@@ -106,15 +93,7 @@ let beverages = [
         {"Name":"beer","DisplayName":"Beer","multiplier":0.49},
         
     ]
-// window.addEventListener('DOMContentLoaded', (event) => {
-//     console.log('DOM fully loaded and parsed');
-// });
 
-// function inputs() {
-//   this.$nextTick(function () {
-    
-//   })
-// }
 export default {
     name: "top-header",
     mounted() {
@@ -132,7 +111,7 @@ export default {
         custom_drink_button.addEventListener("click", clickCustomDrink)
     },
     methods: {  
-              
+
     },
     data() {
         return {    

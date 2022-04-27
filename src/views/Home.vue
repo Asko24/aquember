@@ -121,7 +121,7 @@ export default {
         ...mapGetters({
         user: "user"
         })
-    },
+    }
 }
 </script>
 
