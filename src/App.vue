@@ -1,25 +1,12 @@
 <template>
   <top-header></top-header>
   <nav>
-    <!-- <router-link to="/oldhomeview">OldHomeView</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link v-if="!user.loggedIn" to="/login">Login</router-link> |
-    <router-link v-if="!user.loggedIn" to="/register">Register</router-link> |
-    <router-link v-if="user.loggedIn" to="/home">Home</router-link> |
-    <router-link to="/reporting">Reporting</router-link> | 
-    <router-link v-if="!user.loggedIn" to="/welcome">Welcome</router-link> |
-    <router-link v-if="user.loggedIn" to="/reportingw">ReportingW</router-link> |
-    <router-link to="/appsettings">AppSettings</router-link> |
-    <router-link v-if="user.loggedIn" to="/usersettings">UserSettings</router-link> | -->
-
     <router-link to="/oldhomeview">OldHomeView</router-link> |
-    <router-link to="/about">About</router-link> |
     <router-link to="/login">Login</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/home">Home</router-link> |
     <router-link to="/reporting">Reporting</router-link> | 
     <router-link to="/welcome">Welcome</router-link> |
-    <router-link to="/reportingw">ReportingW</router-link> |
     <router-link to="/appsettings">AppSettings</router-link> |
     <router-link to="/usersettings">UserSettings</router-link> |
   </nav>
